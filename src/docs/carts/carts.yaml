@@ -1,0 +1,89 @@
+paths:
+  /api/carts:
+    get:
+      summary: Get a list of carts
+      tags: 
+        - Carts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CartItem'
+  /api/carts/{cid}:
+    get:
+      summary: Get a cart by ID
+      tags: 
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: The ID of the cart to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  simplifiedCart:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SimplifiedCartItem'
+
+components:
+  schemas:
+    CartItem:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Cart ID
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
+    CartProduct:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        quantity:
+          type: integer
+          description: Quantity of the product in the cart
+        _id:
+          type: string
+          description: Product ID in the cart
+
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Product ID
+        title:
+          type: string
+          description: Product title
+        description:
+          type: string
+          description: Product description
+        code:
+          type: integer
+          description: Product code
+        price:
+          type: number
+          description: Product price
+        stock:
+          type: integer
+          description: Product stock
+        category:
+          type: string
+          description: Product category

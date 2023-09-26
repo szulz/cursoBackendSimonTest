@@ -1,0 +1,48 @@
+<h1>Vista Home</h1>
+<a href="/products">Productos</a>
+
+<div>
+    <form action="/api/products" method="POST" enctype="multipart/form-data" id="form">
+        <label for="title">
+            Title :<input type="text" name="title" id="inputName" >
+        </label>
+        <label for="description">
+            Description :<input type="text" name="description" id="inputDescription">
+        </label>
+        <label for="code">
+            Code :<input type="number" name="code" id="inputCode">
+        </label>
+        <label for="price">
+            Price :<input type="number" name="price" id="inputPrice">
+        </label>
+        <label for="stock">
+            Stock :<input type="number" name="stock" id="inputStock">
+        </label>
+        <label for="category">
+            Category :<input type="text" name="category" id="inputCategory">
+        </label>
+        <input type="file" name='file' accept="image/*" >
+        <input type="submit">
+    </form>
+</div> 
+
+<div id="list">
+  {{#each products}}
+    <ul id="{{_id}}" style='margin-bottom:30px;'>
+      <li>Nombre: {{title}}</li>
+      <li>Description: {{description}}</li>
+      <li>Price: {{price}}</li>
+      <li>Stock: {{stock}}</li>
+      <li>ID: {{_id}}</li>
+    </ul>
+    <button onclick="deleteProduct('{{this._id}}')">Remove Product from DataBase</button>
+  {{/each}}
+
+{{#if (gt currentPage 1)}}
+  <a href="{{#if this.prevLink}}{{this.prevLink}}{{else}}#{{/if}}" class="page-link">Previous Page</a>
+{{/if}}
+
+{{#if (lt currentPage totalPages)}}
+  <a href="{{this.nextLink}}"  class="page-link">Next Page</a>
+{{/if}}
+</div>

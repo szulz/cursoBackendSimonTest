@@ -1,0 +1,23 @@
+<h1>Bienvenido al CHAT {{chat.user}}</h1>
+<h2 id="{{chat.email}}">Usted se encuentra autenticado con el correo {{chat.email}}</h2>
+{{#if chat.email}}<a href="/api/sessions/logout">Cerrar sesión</a>{{else}}<a href="/api/sessions">Iniciar sesión</a>{{/if}}
+
+<div id="chat">
+  <div id="chat-box-container">
+    {{#if isAdmin}} {{else}}<input id="chat-box" name="chatbox" type="text" value=""/>{{/if}}
+    <input id='inputButton' type="submit" value="Enviar Mensaje" class="btn btn-primary" />
+  </div>
+  <div id="chat-messages">
+  {{#each chat.messages}}
+    <ul id="{{_id}}" style='margin-bottom:30px;'>
+      <div id="{{User}}">User: {{user}}</div>
+      <div id="msg">Message: {{msg}}</div>
+      <div>ID: {{_id}}</div>
+    </ul>
+  {{/each}}
+  </div>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

@@ -1,0 +1,13 @@
+<h1>{{product.title}} Detail</h1>
+<a href="/products">Go to home</a>
+<h3>Id: {{product.id}}</h3>
+    <div>
+        <p>Id:{{product.id}}</p>
+        <p>Description:{{product.description}}</p>
+        <p>Price: {{product.price}}</p>
+        <p>Code: {{product.code}}</p>
+        <p>Stock: {{product.stock}}</p>
+        <p>Category: {{product.category}}</p>
+
+        <button onclick="putIntoCart('{{product.id}}')">Add to cart {{product._id}}</button>
+    </div>

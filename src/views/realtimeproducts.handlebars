@@ -1,0 +1,39 @@
+<h1>Vista home</h1>
+
+<div>
+    <form action="/" method="post" enctype="multipart/form-data" id="formRealtime">
+        <label for="title">
+            Title :<input type="text" name="title" id="inputName" >
+        </label>
+        <label for="description">
+            Description :<input type="text" name="description" id="inputDescription">
+        </label>
+        <label for="code">
+            Code :<input type="number" name="code" id="inputCode">
+        </label>
+        <label for="price">
+            Price :<input type="number" name="price" id="inputPrice">
+        </label>
+        <label for="stock">
+            Stock :<input type="number" name="stock" id="inputStock">
+        </label>
+        <label for="category">
+            Category :<input type="text" name="category" id="inputCategory">
+        </label>
+        <input type="submit">
+</div id="list">
+
+  {{#each products}}
+    <ul id="{{code}}" style='margin-bottom:30px;'>
+      <li>Nombre: {{title}}</li>
+      <li>Codigo: {{code}}</li>
+      <li>ID: {{_id}}</li>
+      <button type="button" onclick="deleteProductSocket({{code}})" name="Remove">Remove</button>
+    </ul>
+  {{/each}}
+
+  
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io()
+</script>

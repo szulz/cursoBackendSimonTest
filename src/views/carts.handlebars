@@ -1,0 +1,25 @@
+<h1>Cart {{_id}}</h1>
+
+Listado de productos
+{{#if cart.length}}
+{{#each cart}}
+<ul>
+    <li>Product: {{this.title}}</li>
+    <li>Description: {{this.description}}</li>
+    <li>Price : {{this.price}}</li>
+    <li>Quantity: {{this.quantity}}</li>
+    <li>Category : {{this.category}}</li>
+    <li>Product Id: {{this._id}}</li>
+</ul>
+
+<button onclick="deleteProduct({{this._id}})">Delete Product from Cart</button>
+{{/each}}
+<a href="/products">Go to Products</a>
+
+<button onclick="clearCart()">Clear cart</button>
+<button href="/{{_id}}/purchase">Wrap up Cart</button>
+
+{{else}}
+<h2>El carrito no tiene productos</h2>
+<a href="/products">Go to Products</a>
+{{/if}}

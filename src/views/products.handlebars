@@ -1,0 +1,53 @@
+<h1>Bienvenido {{first_name}} {{#if isAdmin}} Admin{{else}}{{#if first_name}}User Cart ID: {{cart}}{{/if}}{{/if}}
+</h1>
+{{#if first_name}}<a href="/api/sessions/logout">Cerrar sesión</a>{{else}}<a href="/api/sessions">Iniciar sesión</a>{{/if}}
+
+<h1>Products Paginated</h1>
+{{#if isAdmin}}<a href="/productsform">Go to Products Manager</a>{{else}}<a href="/carts/{{this.cart}}">Go to Cart</a>{{/if}}
+
+{{#each products}}
+    <div>
+        <h2>{{this.title}}</h2>
+        <p>{{this._id}}</p>
+        <p>{{this.description}}</p>
+        <p>Price: {{this.price}}</p>
+        <p>{{this.code}}</p>
+        <p>{{this.stock}}</p>
+        <p>{{this.category}}</p>
+
+        <a href="/products/{{this._id}}">View details</a>
+        {{#if ../isAdmin}}<button onclick="putIntoCart('{{this._id}}')" disabled>Add to cart</button>
+        {{else}}<button onclick="putIntoCart('{{this._id}}')">Add to cart</button>
+        {{/if}}
+        
+    </div>
+{{/each}}
+
+<div>
+totalPages:
+{{totalPages}}
+prevPage:
+{{prevPage}}
+nextPage:
+{{nextPage}}
+currentPage:
+{{currentPage}}
+hasPrevPage:
+{{hasPrevPage}}
+hasNextPage:
+{{hasNextPage}}
+prevLink:
+{{prevLink}}
+nextLink:
+{{nextLink}}
+</div>
+
+<div class="pagination">
+    {{#if prevLink}}
+        <a href="{{prevLink}}">Previous</a>
+    {{/if}}
+
+    {{#if nextLink}}
+        <a href="{{nextLink}}">Next</a>
+    {{/if}}
+</div>

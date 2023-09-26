@@ -1,0 +1,215 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos y renderiza una vista de los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron devueltos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Result"
+        "500":
+          description: Error del servidor. Falla de query o de conexión con el servidor
+    post:
+      summary: Add a new product
+      tags:
+        - Products
+      requestBody:
+        description: Product details to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+      responses:
+        '201':
+          description: Product added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductAddedResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/products/{pid}:
+    get:
+      summary: Get a product by ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: The ID of the product to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+    delete:
+      summary: Delete a product by ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: The ID of the product to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Estado de la respuesta
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/Products'
+          description: Datos principales
+        totalPages:
+          type: integer
+          description: Total de páginas disponibles
+        prevPage:
+          type: integer
+          description: Página anterior
+        nextPage:
+          type: integer
+          description: Página siguiente
+        page:
+          type: integer
+          description: Página actual
+        hasPrevPage:
+          type: boolean
+          description: Indica si hay una página anterior
+        hasNextPage:
+          type: boolean
+          description: Indica si hay una página siguiente
+        prevLink:
+          type: string
+          description: Enlace a la página anterior
+        nextLink:
+          type: string
+          description: Enlace a la página siguiente
+    Products:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID del producto
+        title:
+          type: string
+          description: Título del producto
+        description:
+          type: string
+          description: Descripción del producto
+        code:
+          type: integer
+          description: Código del producto
+        price:
+          type: number
+          description: Precio del producto
+        stock:
+          type: integer
+          description: Cantidad en stock del producto
+        category:
+          type: string
+          description: Categoría del producto
+
+    ProductResponse:
+      type: object
+      properties:
+        simplifiedProduct:
+          $ref: '#/components/schemas/Products'
+
+    ProductRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        code:
+          type: integer
+        price:
+          type: number
+        stock:
+          type: integer
+        category:
+          type: string
+      example:
+        title: "Product 1"
+        description: "Description of product 1"
+        code: 0001
+        price: 1200
+        stock: 50
+        category: "Some"
+
+    ProductAddedResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/Product'
+    
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    
